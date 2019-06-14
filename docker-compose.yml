@@ -3,7 +3,7 @@ version: '3'
 services: 
   app:
     container_name: app
-    build: .
+    image: carlosocarvalho/microservice-docker-laravel:latest
     networks: 
       - app-network
     volumes: 
@@ -20,6 +20,8 @@ services:
       - ./:/var/www  
     networks: 
       - app-network
+    depends_on: 
+      - app 
   db:
     image: mysql:5.7
     command: --innodb-use-native-aio=0
