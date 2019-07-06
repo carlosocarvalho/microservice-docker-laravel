@@ -6,4 +6,8 @@ steps:
 
 - id: "Runner docker ps"
   name: "gcr.io/cloud-builders/docker"
-  args: ['ps']  
+  args: ['ps']
+
+- id: "Runner php composer"
+  name: "gcr.io/cloud-builders/docker"
+  args: ['exec', '-t', 'app', 'composer', 'install']
