@@ -11,3 +11,19 @@ steps:
 - id: "Runner php composer"
   name: "gcr.io/cloud-builders/docker"
   args: ['exec', '-t', 'app', 'composer', 'install']
+
+- id: "Copy .env file"
+  name: "gcr.io/cloud-builders/docker"
+  args: ['exec', '-t', 'app', 'cp', '.env-example', '.env']
+
+- id: "Runner key generate"
+  name: "gcr.io/cloud-builders/docker"
+  args: ['exec', '-t', 'app', 'php', 'artisan', 'key:generate']
+
+- id: "Runner migrations"
+  name: "gcr.io/cloud-builders/docker"
+  args: ['exec', '-t', 'app', 'php', 'artisan', 'migrate', '--force']
+
+- id: "Runner unit tests"
+  name: "gcr.io/cloud-builders/docker"
+  args: ['exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']
