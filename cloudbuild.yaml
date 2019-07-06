@@ -1,5 +1,9 @@
 steps:
 
 - id: "Runner docker compose file"
-  name: "gcr.io/$PROJECT_ID/docker-compose"
+  name: "gcr.io/$PROJECT_ID/docker-compose:1.24.0"
   args: ['-f', 'docker-gcp.yml', 'up', '-d']
+
+- id: "Runner docker ps"
+  name: "gcr.io/cloud-builders/docker"
+  args: ['ps']  
