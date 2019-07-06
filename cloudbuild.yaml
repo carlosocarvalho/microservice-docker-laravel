@@ -4,10 +4,6 @@ steps:
   name: "gcr.io/$PROJECT_ID/docker-compose:1.24.0"
   args: ['-f', 'docker-gcp.yml', 'up', '-d']
 
-- id: "Runner docker ps"
-  name: "gcr.io/cloud-builders/docker"
-  args: ['ps']
-
 - id: "Runner php composer"
   name: "gcr.io/cloud-builders/docker"
   args: ['exec', '-t', 'app', 'composer', 'install']
