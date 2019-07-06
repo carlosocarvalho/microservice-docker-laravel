@@ -20,6 +20,6 @@ steps:
   name: "gcr.io/cloud-builders/docker"
   args: ['exec', '-t', 'app', 'php', 'artisan', 'migrate', '--force']
 
-- id: "Runner phpunit tests"
+- id: "Runner php unit tests"
   name: "gcr.io/cloud-builders/docker"
   args: ['exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']
