@@ -1,5 +1,13 @@
 steps:
 
+- id: "Runner docker compose file"
+  name: "gcr.io/$PROJECT_ID/docker-compose:1.24.0"
+  args: ['-f', 'docker-gcp.yml', 'up', '-d']
+
+- id: "Runner php composer"
+  name: "gcr.io/cloud-builders/docker"
+  args: ['exec', '-t', 'app', 'composer', 'install']
+  
 - id: "Copy .env file"
   name: "gcr.io/cloud-builders/docker"
   args: ['exec', '-t', 'app', 'cp', '.env.example', '.env']
