@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-deployment
+      tier: db
+  template:
+    metadata:
+      labels:
+        app: mysql-deployment
+        tier: db
+    spec:
+      containers:
+      - name: mysql-deployment
+        image: mysql:5.7
+        args:
+          - "--ignore-db-dir=lost+found"
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: "12345"
+          - name: MYSQL_DATABASE
+            value: "laravel"    
+        # resources:
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m"
+        ports:
+         - containerPort: 3306
+        volumeMounts:
+        - name: mysql-pv-storage
+          mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-pv-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim 
+
