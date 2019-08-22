@@ -1,13 +1,5 @@
 steps:
 
-- id: "Runner docker compose file"
-  name: "gcr.io/$PROJECT_ID/docker-compose:1.24.0"
-  args: ['-f', 'docker-gcp.yml', 'up', '-d']
-
-- id: "Runner php composer"
-  name: "gcr.io/cloud-builders/docker"
-  args: ['exec', '-t', 'app', 'composer', 'install']
-
 - id: "Copy .env file"
   name: "gcr.io/cloud-builders/docker"
   args: ['exec', '-t', 'app', 'cp', '.env.example', '.env']
@@ -26,7 +18,7 @@ steps:
 
 - id: "Build docker file prod"
   name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA", "-f", "Dockerfile.prod"]
+  args: ["build", "-t", "gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA", "-f", "./Dockerfile.prod"]
 
 - id: "Pushing Image"
   name: "gcr.io/cloud-builders/docker"
